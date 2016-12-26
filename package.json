@@ -30,7 +30,8 @@
     "webpack-hot-middleware": "^2.13.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node server.js"
   },
   "repository": {
     "type": "git",
