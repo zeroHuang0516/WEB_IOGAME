@@ -7,8 +7,10 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
+    "konva": "^1.2.2",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-konva": "^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
