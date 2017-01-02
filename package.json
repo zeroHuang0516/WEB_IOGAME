@@ -13,6 +13,9 @@
     "react-dom": "^15.3.2",
     "react-konva": "^1.1.1"
   },
+    "engines": {
+    "node": ">=0.10.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.0",
