@@ -7,6 +7,7 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^4.7.1",
     "konva": "^1.2.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -26,6 +27,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.6.0",
+    "node-uuid": "^1.4.7",
+    "socket.io": "^1.7.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-dev-middleware": "^1.8.4",
@@ -33,7 +36,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node server.js"
+    "start": "babel-node server.js",
+    "lint": "eslint src server.js api.js webpack.confing.js"
   },
   "repository": {
     "type": "git",
