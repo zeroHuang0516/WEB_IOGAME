@@ -13,6 +13,7 @@ class Screen extends Component {
     this.preload = this.preload.bind(this);
     this.create = this.create.bind(this);
     this.update = this.update.bind(this);
+    this.phaserRender = this.phaserRender.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +24,8 @@ class Screen extends Component {
         Phaser.AUTO, 'map', {
           preload: this.preload,
           create: this.create,
-          update: this.update
+          render: this.phaserRender,
+          update: this.update,
         }),
     };
   }
@@ -37,11 +39,34 @@ class Screen extends Component {
       font: 'bold 11px Arial',
       fill: '#ffffff',
     };
-    this.state.phaser.add.text(10, 10, 'Is this working?', style);
+    const p = this.state.phaser;
+    p.add.text(10, 10, 'Is this working?', style);
+
+    p.selectRect = new Phaser.Rectangle();
+    p.nekorz = { press: false };
   }
 
   update() {
+    const p = this.state.phaser;
+    if (p.input.activePointer.justPressed() && p.nekorz.press === false) {
+      p.selectRect.x = p.input.activePointer.x;
+      p.selectRect.y = p.input.activePointer.y;
+      p.nekorz.press = true;
+    }
 
+    if (p.input.activePointer.leftButton.isDown) {
+      p.selectRect.width = p.input.activePointer.x - p.selectRect.x;
+      p.selectRect.height = p.input.activePointer.y - p.selectRect.y;
+    } else {
+      p.selectRect.width = 0;
+      p.selectRect.height = 0;
+      p.nekorz.press = false;
+    }
+  }
+
+  phaserRender() {
+    const p = this.state.phaser;
+    p.debug.geom(p.selectRect, 'rgba(255, 255, 255, 0.25)');
   }
 
   render() {
