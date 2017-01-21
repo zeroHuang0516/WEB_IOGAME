@@ -1,23 +1,47 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Map from './Map';
+import 'pixi';
+import 'p2';
+import Phaser from 'phaser';
+// import Map from './Map';
 
 
 class Screen extends Component {
   constructor() {
     super();
     this.state = {};
+
+    this.preload = this.preload.bind(this);
+    this.create = this.create.bind(this);
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
     this.state = {
       mapHeight: document.getElementsByClassName('map')[0].clientHeight,
       mapWidth: document.getElementsByClassName('map')[0].clientWidth,
+      phaser: new Phaser.Game(document.getElementsByClassName('map')[0].clientWidth, document.getElementsByClassName('map')[0].clientHeight,
+        Phaser.AUTO, 'map', {
+          preload: this.preload,
+          create: this.create,
+          update: this.update
+        }),
     };
-    ReactDOM.render(
-      <Map height={this.state.mapHeight} width={this.state.mapWidth} />,
-      document.getElementsByClassName('map')[0]
-    );
+  }
+
+  preload() {
+
+  }
+
+  create() {
+    const style = {
+      font: 'bold 11px Arial',
+      fill: '#ffffff',
+    };
+    this.state.phaser.add.text(10, 10, 'Is this working?', style);
+  }
+
+  update() {
+
   }
 
   render() {
@@ -29,7 +53,7 @@ class Screen extends Component {
             <div className="row resource">resource</div>
           </span>
           <span className="col-md-10 right">
-            <div className="row map" />
+            <div className="row map" id="map" />
             <div className="row info">
               <span className="col-md-10 detail">detail</span>
               <span className="col-md-2 minimap">minimap</span>

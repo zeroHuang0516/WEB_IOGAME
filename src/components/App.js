@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import HomePage from './HomePage';
 import LoadingPage from './LoadingPage';
 import World from './World';
+import Game from './game';
 
 class App extends Component {
   state = {
@@ -25,10 +26,12 @@ class App extends Component {
       return <World />;
     }
 
+    if (this.state.route === '/game') {
+      return <Game />;
+    }
+
     return <HomePage />;
   }
-
- 
 
   render() {
     return (
