@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import HomePage from './HomePage';
 import LoadingPage from './LoadingPage';
-import World from './World';
 import Game from './game';
 
 class App extends Component {
@@ -22,9 +21,7 @@ class App extends Component {
       return <LoadingPage />;
     }
 
-    if (this.state.route === '/world') {
-      return <World />;
-    }
+    
 
     if (this.state.route === '/game') {
       return <Game />;
