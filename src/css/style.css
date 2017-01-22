@@ -11,14 +11,14 @@
 }
 
 .building{
-  background-color: rgb(157, 155, 27);
+  background-color: rgb(209, 207, 207);
 
   height: 80%;
 
 }
 
 .resource{
-  background-color: rgb(247, 166, 231);
+  background-color: rgb(209, 207, 207);
 
   height: 20%;
 }
@@ -30,7 +30,7 @@
 }
 
 .map{
-  background-color: rgb(116, 172, 47);
+  background-color: rgb(158, 17, 17);
 
   height: 80%;
 }
@@ -42,13 +42,13 @@
 }
 
 .detail{
-  background-color: rgb(73, 235, 184);
+  background-color: rgb(209, 207, 207);
 
   height: 100%;
 }
 
 .minimap{
-  background-color: rgb(81, 150, 214);
+  background-color: rgb(209, 207, 207);
 
   height: 100%;
 }
