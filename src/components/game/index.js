@@ -35,19 +35,20 @@ class Screen extends Component {
   }
 
   create() {
-    const style = {
-      font: 'bold 11px Arial',
-      fill: '#ffffff',
-    };
     const p = this.state.phaser;
-    p.add.text(10, 10, 'Is this working?', style);
+    p.nekorz = { press: false };
+
+    p.world.resize(4000, 4000);
 
     p.selectRect = new Phaser.Rectangle();
-    p.nekorz = { press: false };
+    p.add.sprite(0, 0,
+      p.create.grid('grid', 4000, 4000, 50, 50, 'rgba(113, 113, 113, 1)')
+    );
   }
 
   update() {
     const p = this.state.phaser;
+    // handleSelect
     if (p.input.activePointer.justPressed() && p.nekorz.press === false) {
       p.selectRect.x = p.input.activePointer.x;
       p.selectRect.y = p.input.activePointer.y;
@@ -62,11 +63,25 @@ class Screen extends Component {
       p.selectRect.height = 0;
       p.nekorz.press = false;
     }
+
+    // scrollWorld
+    if (p.input.keyboard.isDown(Phaser.KeyCode.W)) {
+      p.camera.y -= 10;
+    } else if (p.input.keyboard.isDown(Phaser.KeyCode.S)) {
+      p.camera.y += 10;
+    }
+    if (p.input.keyboard.isDown(Phaser.KeyCode.A)) {
+      p.camera.x -= 10;
+    } else if (p.input.keyboard.isDown(Phaser.KeyCode.D)) {
+      p.camera.x += 10;
+    }
   }
 
   phaserRender() {
     const p = this.state.phaser;
     p.debug.geom(p.selectRect, 'rgba(255, 255, 255, 0.25)');
+
+    p.debug.cameraInfo(p.camera, 32, 32);
   }
 
   render() {
