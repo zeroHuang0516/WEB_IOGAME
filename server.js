@@ -51,10 +51,81 @@ app.get('/*', function(req, res, next) {
     res.sendFile(__dirname + '/' + file);
 });
 
-var users = [];
+
+
+
+var users = [
+    {
+        id:'default',   //for connection check
+        username:'1',
+        team:'dafault',
+    },
+    {
+        id:'',   //for connection check
+        username:'2',
+        team:'',
+    },
+    {
+        id:'',   //for connection check
+        username:'3',
+        team:'',
+    },
+    {
+        id:'',   //for connection check
+        username:'4',
+        team:'',
+    },
+    {
+        id:'',   //for connection check
+        username:'5',
+        team:'',
+    },
+    {
+        id:'',   //for connection check
+        username:'6',
+        team:'',
+    },
+];
+
+
 var TotalUsrs = [];
 var games = [];
 var gameCount = 0;
+
+var Awood =[];
+var Astone =[];
+var Agold =[];
+var Afarm =[];
+var Amilitary =[];
+var Ainfantry =[];
+var Acavalry =[];
+var Aarcher =[];
+
+var Bwood =[];
+var Bstone =[];
+var Bgold =[];
+var Bfarm =[];
+var Bmilitary =[];
+var Binfantry =[];
+var Bcavalry =[];
+var Barcher =[];
+
+
+var Ateams = [{
+                  id: 0,
+                  AplayersStrIdx: 0,
+                  AplayersEndIdx: 0,
+                  wood:0,
+                  stone:0,
+                  gold:0,
+                  farm:0,
+                  military:0,
+                  infantry:0, //步兵
+                  cavalry:0, //騎兵
+                  archer:0, //弓兵
+                },];
+var Bteams = [];
+
 
 
 
@@ -68,15 +139,13 @@ router.get('/',(req,res)=>{
 
 var sio = io.listen(server);
 sio.sockets.on('connection', (socket) =>{
-  socket.userid = UUID();
+  socket.userid = socket.id;
   socket.emit('onconnected', {id:socket.userid});
 
 
   //console.log('\t socket.io:: player '+socket.userid+' connected');
 
-  socket.on('message', (msg) => {
-        //game_server.onMessage(socket, msg);
-  }); 
+  
 
 
  
@@ -97,6 +166,7 @@ sio.sockets.on('connection', (socket) =>{
         
         console.log('[INFO] Player ' + msg + ' connecting!');
         socket.emit('NewUsrName',msg);
+        socket.emit('SocketId', socket.userid);
         //check if there is a repeat connection
         var repeat =1;
         var len = users.length;
@@ -140,7 +210,7 @@ sio.sockets.on('connection', (socket) =>{
                   name:users[i].username
                   });
                 }
-                var gameId= UUID();
+                var gameId= socket.id;
                 var playerList = [];
                 for(var j=0;j<users.length;j++){
                   TotalUsrs.push(users[j]);
@@ -153,6 +223,55 @@ sio.sockets.on('connection', (socket) =>{
                   playerEndIdx: (gameCount+1)*8-1,
                   gamecore:''
                 });
+
+                Ateams.push({
+                  id: gameId,
+                  AplayersStrIdx: gameCount*8,
+                  AplayersEndIdx: gameCount*8+3,
+                  wood:0,
+                  stone:0,
+                  gold:0,
+                  farm:0,
+                  military:0,
+                  infantry:0, //步兵
+                  cavalry:0, //騎兵
+                  archer:0, //弓兵
+                });
+                Bteams.push({
+                  id: gameId,
+                  BplayersStrIdx: gameCount*8+4,
+                  BplayersEndIdx: (gameCount+1)*8-1,
+                  wood:0,
+                  stone:0,
+                  gold:0,
+                  farm:0,
+                  military:0,
+                  infantry:0, //步兵
+                  cavalry:0, //騎兵
+                  archer:0, //弓兵
+                });
+
+                Awood.push(0); 
+                Astone.push(0); 
+                Agold.push(0); 
+                Afarm.push(0); 
+                Amilitary.push(0); 
+                Ainfantry.push(0); 
+                Acavalry.push(0); 
+                Aarcher.push(0); 
+
+                Bwood.push(0); 
+                Bstone.push(0); 
+                Bgold.push(0); 
+                Bfarm.push(0); 
+                Bmilitary.push(0); 
+                Binfantry.push(0); 
+                Bcavalry.push(0); 
+                Barcher.push(0); 
+
+                socket.broadcast.emit('GameId', gameCount);
+                socket.emit('GameId', gameCount);
+
                 gameCount++;
                 users=[];
             }
@@ -161,20 +280,20 @@ sio.sockets.on('connection', (socket) =>{
             console.log("[INFO] We have "+gameCount+" games.");
             console.log(games);
 
+            console.log("[INFO] We have "+Ateams.length+" Ateams.");
+            console.log(Ateams);
+
+            console.log("[INFO] We have "+Bteams.length+" Bteams.");
+            console.log(Bteams);
+            if(Ateams.length>=1){
+              console.log(Agold[0]);
+            }
+            
+
         }
     });
 
-  
-  // socket.on('chat message', function(msg){
 
-  //   console.log(socket.username+":"+msg);
-
- 
-  //   socket.emit('chat message', {
-  //     username:socket.username,
-  //     msg:msg
-  //   });
-  // });
 
 
   //left
