@@ -9,8 +9,6 @@ class Client {
       food: 0,
     };
   }
-
-  handleSelect() {
-
-  }
 }
+
+export default Client;

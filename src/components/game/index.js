@@ -3,7 +3,7 @@ import 'pixi';
 import 'p2';
 import Phaser from 'phaser';
 // import Map from './Map';
-
+import Client from './Client';
 
 class Screen extends Component {
   constructor() {
@@ -27,38 +27,67 @@ class Screen extends Component {
           render: this.phaserRender,
           update: this.update,
         }),
+      client: new Client(),
     };
   }
 
   preload() {
+    const p = this.state.phaser;
 
+    p.load.image('circle', '../../../assets/circle.png', 32, 32);
   }
 
   create() {
     const p = this.state.phaser;
     p.nekorz = { press: false };
+    p.nekorz.selectedUnits = p.add.group();
 
     p.world.resize(4000, 4000);
+    p.canvas.oncontextmenu = e => { e.preventDefault(); };
 
     p.selectRect = new Phaser.Rectangle();
+    p.selectRectBody = p.add.sprite(0, 0, null);
+    p.physics.enable(p.selectRectBody, Phaser.Physics.ARCADE);
+
     p.add.sprite(0, 0,
       p.create.grid('grid', 4000, 4000, 50, 50, 'rgba(113, 113, 113, 1)')
     );
+
+    this.state.client.unitList = p.add.physicsGroup(Phaser.Physics.ARCADE);
+    const c = p.add.sprite(100, 100, 'circle');
+    c.setScaleMinMax(0.25);
+    this.state.client.unitList.add(c);
   }
 
   update() {
     const p = this.state.phaser;
+    const worldPointer = {
+      x: p.input.activePointer.x + p.camera.x,
+      y: p.input.activePointer.y + p.camera.y,
+    };
     // handleSelect
-    if (p.input.activePointer.justPressed() && p.nekorz.press === false) {
-      p.selectRect.x = p.input.activePointer.x;
-      p.selectRect.y = p.input.activePointer.y;
+    if (p.input.activePointer.leftButton.isDown && p.nekorz.press === false) {
+      p.selectRect.x = worldPointer.x;
+      p.selectRect.y = worldPointer.y;
       p.nekorz.press = true;
-    }
-
-    if (p.input.activePointer.leftButton.isDown) {
-      p.selectRect.width = p.input.activePointer.x - p.selectRect.x;
-      p.selectRect.height = p.input.activePointer.y - p.selectRect.y;
-    } else {
+    } else if (p.input.activePointer.leftButton.isDown) {
+      p.selectRect.width = worldPointer.x - p.selectRect.x;
+      p.selectRect.height = worldPointer.y - p.selectRect.y;
+    } else if (p.nekorz.press === true) {
+      p.selectRectBody.body.setSize(
+        p.selectRect.width,
+        p.selectRect.height,
+        worldPointer.x,
+        worldPointer.y
+      );
+      console.log('wut');
+      p.physics.arcade.overlap(
+        p.selectRectBody,
+        this.state.client.unitList,
+        (r, s) => {
+          p.nekorz.selectedUnits.add(s);
+          console.log('selected!');
+        });
       p.selectRect.width = 0;
       p.selectRect.height = 0;
       p.nekorz.press = false;
@@ -80,8 +109,8 @@ class Screen extends Component {
   phaserRender() {
     const p = this.state.phaser;
     p.debug.geom(p.selectRect, 'rgba(255, 255, 255, 0.25)');
-
-    p.debug.cameraInfo(p.camera, 32, 32);
+    p.debug.geom(p.nekorz.c, 'rgba(255, 255, 255, 1)');
+    // p.debug.cameraInfo(p.camera, 32, 32);
   }
 
   render() {
