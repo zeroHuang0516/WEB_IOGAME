@@ -40,8 +40,10 @@ class Screen extends Component {
   create() {
     const p = this.state.phaser;
     p.nekorz = { press: false };
+    p.nekorz.rightPressed = false;
     p.nekorz.selectedUnits = p.add.group();
 
+    p.physics.startSystem(Phaser.Physics.ARCADE);
     p.world.resize(4000, 4000);
     p.canvas.oncontextmenu = e => { e.preventDefault(); };
 
@@ -54,8 +56,18 @@ class Screen extends Component {
     );
 
     this.state.client.unitList = p.add.physicsGroup(Phaser.Physics.ARCADE);
-    const c = p.add.sprite(100, 100, 'circle');
+    let c = p.add.sprite(100, 100, 'circle');
     c.setScaleMinMax(0.25);
+    p.physics.enable(c, Phaser.Physics.ARCADE);
+    c.body.setSize(16, 16);
+
+    this.state.client.unitList.add(c);
+
+    c = p.add.sprite(130, 130, 'circle');
+    c.setScaleMinMax(0.25);
+    p.physics.enable(c, Phaser.Physics.ARCADE);
+    c.body.setSize(16, 16);
+
     this.state.client.unitList.add(c);
   }
 
@@ -70,29 +82,59 @@ class Screen extends Component {
       p.selectRect.x = worldPointer.x;
       p.selectRect.y = worldPointer.y;
       p.nekorz.press = true;
+      p.nekorz.selectedUnits.forEach(s => {
+        this.state.client.unitList.add(s);
+      });
     } else if (p.input.activePointer.leftButton.isDown) {
       p.selectRect.width = worldPointer.x - p.selectRect.x;
       p.selectRect.height = worldPointer.y - p.selectRect.y;
     } else if (p.nekorz.press === true) {
-      p.selectRectBody.body.setSize(
-        p.selectRect.width,
-        p.selectRect.height,
-        worldPointer.x,
-        worldPointer.y
-      );
+      let w = p.selectRect.width;
+      let h = p.selectRect.height;
+      let l = p.selectRect.left;
+      let t = p.selectRect.top;
+      if (w < 0) {
+        l += w;
+        w *= -1;
+      }
+      if (h < 0) {
+        t += h;
+        h *= -1;
+      }
+      p.selectRectBody.body.setSize(w, h, 0, 0);
+      p.selectRectBody.x = l;
+      p.selectRectBody.y = t;
+
       console.log('wut');
-      p.physics.arcade.overlap(
+      while (p.physics.arcade.overlap(
         p.selectRectBody,
         this.state.client.unitList,
         (r, s) => {
           p.nekorz.selectedUnits.add(s);
           console.log('selected!');
-        });
+        }));
       p.selectRect.width = 0;
       p.selectRect.height = 0;
       p.nekorz.press = false;
     }
 
+    if (p.input.activePointer.rightButton.isDown && p.nekorz.rightPressed === false) {
+      p.nekorz.rightPressed = true;
+      p.nekorz.selectedUnits.forEach(s => {
+        const dist = p.physics.arcade.distanceToXY(s, worldPointer.x, worldPointer.y);
+        s.body.moveTo(dist * 5, dist,
+          p.physics.arcade.angleToPointer(s) * (180.0 / 3.141592653)
+        );
+      });
+    } else if (!p.input.activePointer.rightButton.isDown) {
+      p.nekorz.rightPressed = false;
+    }
+
+    if (p.input.keyboard.isDown(Phaser.KeyCode.ESC)) {
+      p.nekorz.selectedUnits.forEach(s => {
+        this.state.client.unitList.add(s);
+      });
+    }
     // scrollWorld
     if (p.input.keyboard.isDown(Phaser.KeyCode.W)) {
       p.camera.y -= 10;
