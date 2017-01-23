@@ -420,7 +420,15 @@ sio.sockets.on('connection', (socket) =>{
           socket.broadcast.emit('BMilitaryList', JSON.stringify(Bmilitary));
     });
 
-    
+    //receive client'dos
+    socket.on('Move',(msg)=>{
+        if(msg.team ==='A'){
+            //update A's data
+        }
+        else if( msg.team === 'B'){
+            //update B's data
+        }
+    });
 
 
   //left

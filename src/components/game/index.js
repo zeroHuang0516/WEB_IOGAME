@@ -160,7 +160,9 @@ class Screen extends Component {
       <div className="container-fluid">
         <div className="row screen">
           <span className="col-md-2 left">
-            <div className="row building">building</div>
+            <div className="row building">building
+            <input className="col-md-12 left" id="myButton" type="button" value="我是按鈕" />
+            </div>
             <div className="row resource">resource</div>
           </span>
           <span className="col-md-10 right">
