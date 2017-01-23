@@ -422,6 +422,8 @@ sio.sockets.on('connection', (socket) =>{
 
     //receive client'dos
     socket.on('Move',(msg)=>{
+      //console.log('something is here...');
+      //console.log(msg);
         if(msg.team ==='A'){
             if(msg.source === 'farm'){
               if(Afarm.length>=msg.idx+1){
@@ -431,6 +433,7 @@ sio.sockets.on('connection', (socket) =>{
                 if(Afarm[msg.idx].yPos !== msg.yPos){
                     Afarm[msg.idx].yPos = msg.yPos;
                 }
+                console.log(Afarm[msg.idx]);
               }  
             }
         }
@@ -443,6 +446,7 @@ sio.sockets.on('connection', (socket) =>{
                 if(Bfarm[msg.idx].yPos !== msg.yPos){
                     Bfarm[msg.idx].yPos = msg.yPos;
                 }
+                console.log(Bfarm[msg.idx]);
               } 
             }
         }
