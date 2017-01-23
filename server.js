@@ -425,28 +425,29 @@ sio.sockets.on('connection', (socket) =>{
       //console.log('something is here...');
       //console.log(msg);
         if(msg.team ==='A'){
-            if(msg.source === 'farm'){
-              if(Afarm.length>=msg.idx+1){
+            
+            if(Afarm.length>=msg.idx+1){
+              if(msg.source === 'farm'){
                 if(Afarm[msg.idx].xPos !== msg.xPos){
                     Afarm[msg.idx].xPos =msg.xPos;
                 }
                 if(Afarm[msg.idx].yPos !== msg.yPos){
                     Afarm[msg.idx].yPos = msg.yPos;
                 }
-                console.log(Afarm[msg.idx]);
+                //console.log(Afarm[msg.idx]);
               }  
             }
         }
         else if( msg.team === 'B'){
-            if(msg.source === 'farm'){
-              if(Bfarm.length>=msg.idx+1){
+            if(Bfarm.length>=msg.idx+1){
+              if(msg.source === 'farm'){
                 if(Bfarm[msg.idx].xPos !== msg.xPos){
                     Bfarm[msg.idx].xPos =msg.xPos;
                 }
                 if(Bfarm[msg.idx].yPos !== msg.yPos){
                     Bfarm[msg.idx].yPos = msg.yPos;
                 }
-                console.log(Bfarm[msg.idx]);
+                //console.log(Bfarm[msg.idx]);
               } 
             }
         }
