@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Building from './Building';
+import Game from './game';
 class LoadingPage extends Component {
 	constructor(props) {
     super(props);
@@ -11,14 +12,22 @@ class LoadingPage extends Component {
       mysocketId:'',
       myGameId:'',
       //team resource
-      wood:0,
-      stone:0,
-      gold:0,
-      farm:0,
-      military:0,
-      infantry:0, //步兵
-      cavalry:0, //騎兵
-      archer:0, //弓兵
+      AwoodList:[],
+      AstoneList:[],
+      AgoldList:[],
+      AfarmList:[],
+      AmilitaryList:[],
+      AinfantryList:[], //步兵
+      AcavalryList:[], //騎兵
+      AarcherList:[], //弓兵
+      BwoodList:[],
+      BstoneList:[],
+      BgoldList:[],
+      BfarmList:[],
+      BmilitaryList:[],
+      BinfantryList:[], //步兵
+      BcavalryList:[], //騎兵
+      BarcherList:[], //弓兵
     };
     this.handleUsrCountChange = this.handleUsrCountChange.bind(this);
     this.renderLoadingPage = this.renderLoadingPage.bind(this);
@@ -27,23 +36,100 @@ class LoadingPage extends Component {
 
 
   handleResourceChange(){
-      var socket = io();
-      sockeu.on('update',(msg)=>{
+        var socket = io();
+        var self = this;
+        socket.emit('Aresource');
+        socket.on('AGoldList', (msg) =>{
+            if((this.state.AgoldList) !== msg){
+                self.setState({
+                    AgoldList: msg,
+                });
+            }
+        });
+        socket.on('AWoodList', (msg) =>{
+            if((this.state.AwoodList) !== msg){
+                self.setState({
+                    AwoodList: msg,
+                });
+            }
+        });
+        socket.on('AStoneList', (msg) =>{
+            if((this.state.AstoneList) !== msg){
+                self.setState({
+                    AstoneList: msg,
+                });
+            }
+        });
 
-      });
-      socket.emit('move',(msg)=>{
+        socket.on('AFarmList', (msg) =>{
+            if((this.state.AfarmList) !== msg){
+                self.setState({
+                    AfarmList: msg,
+                });
+            }
+        });
 
-      });
-      socket.emit('change',(msg)=>{
+        socket.on('AMilitaryList', (msg) =>{
+            if((this.state.AmilitaryList) !== msg){
+                self.setState({
+                    AmilitaryList: msg,
+                });
+            }
+        });
 
-      });
+        socket.emit('Bresource');
+        socket.on('BGoldList', (msg) =>{
+            if((this.state.BgoldList) !== msg){
+                self.setState({
+                    BgoldList: msg,
+                });
+            }
+        });
+        socket.on('BWoodList', (msg) =>{
+            if((this.state.BwoodList) !== msg){
+                self.setState({
+                    BwoodList: msg,
+                });
+            }
+        });
+        socket.on('BStoneList', (msg) =>{
+            if((this.state.BstoneList) !== msg){
+                self.setState({
+                    BstoneList: msg,
+                });
+            }
+        });
+
+        socket.on('BFarmList', (msg) =>{
+            if((this.state.BfarmList) !== msg){
+                self.setState({
+                    BfarmList: msg,
+                });
+            }
+        });
+
+        socket.on('BMilitaryList', (msg) =>{
+            if((this.state.BmilitaryList) !== msg){
+                self.setState({
+                    BmilitaryList: msg,
+                });
+            }
+        });
+        // console.log("gold:"+this.state.AgoldList);
+        //  console.log("wood:"+this.state.AwoodList);
+        //   console.log("stone:"+this.state.AstoneList);
+        //    console.log("farm:"+this.state.AfarmList);
+        //     console.log("military:"+this.state.AmilitaryList);
+  }
+
+  componentDidUpdate() {
+      this.handleResourceChange();
   }
 
 
   handleUsrCountChange(){
 
   	var socket = io();
-    
   	socket.on('NewUsrName', (msg) =>{
   		if(this.state.myname ===''){
         this.setState({
@@ -333,6 +419,7 @@ class LoadingPage extends Component {
 
   renderLoadingPage(){
     this.handleUsrCountChange();
+    //this.handleResourceChange();
     var users = this.state.usrList;
     var doRenderMap = 0;
     
@@ -382,11 +469,7 @@ class LoadingPage extends Component {
             );
       }
       else if(this.state.doRenderMap == 1){
-                return(
-                      <div>
-                      <h1 style={{color:'white'}}>World</h1>
-                      </div>
-                );
+                return <Game />;
       }
   		
     }

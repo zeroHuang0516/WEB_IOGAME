@@ -251,23 +251,119 @@ sio.sockets.on('connection', (socket) =>{
                   archer:0, //弓兵
                 });
 
-                Awood.push(0); 
-                Astone.push(0); 
-                Agold.push(0); 
-                Afarm.push(0); 
-                Amilitary.push(0); 
-                Ainfantry.push(0); 
-                Acavalry.push(0); 
-                Aarcher.push(0); 
+                Awood.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Astone.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Agold.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Afarm.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Amilitary.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Ainfantry.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Acavalry.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Aarcher.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
 
-                Bwood.push(0); 
-                Bstone.push(0); 
-                Bgold.push(0); 
-                Bfarm.push(0); 
-                Bmilitary.push(0); 
-                Binfantry.push(0); 
-                Bcavalry.push(0); 
-                Barcher.push(0); 
+                Bwood.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Bstone.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Bgold.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Bfarm.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Bmilitary.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Binfantry.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Bcavalry.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
+                Barcher.push({
+                  xPos:0,
+                  yPos:0,
+                  xVel:0,
+                  yVel:0,
+                  life:0,
+                }); 
 
                 socket.broadcast.emit('GameId', gameCount);
                 socket.emit('GameId', gameCount);
@@ -285,15 +381,46 @@ sio.sockets.on('connection', (socket) =>{
 
             console.log("[INFO] We have "+Bteams.length+" Bteams.");
             console.log(Bteams);
-            if(Ateams.length>=1){
-              console.log(Agold[0]);
-            }
             
-
         }
     });
+  
+    //resource update
+    socket.on('Aresource', (msg)=>{
+          socket.broadcast.emit('AGoldList', JSON.stringify(Agold));
+          socket.broadcast.emit('AGoldList',JSON.stringify(Agold));
 
+          socket.broadcast.emit('AWoodList', JSON.stringify(Awood));
+          socket.broadcast.emit('AWoodList',JSON.stringify(Awood));
 
+          socket.broadcast.emit('AStoneList', JSON.stringify(Astone));
+          socket.broadcast.emit('AStoneList', JSON.stringify(Astone));
+        
+          socket.broadcast.emit('AFarmList', JSON.stringify(Afarm));
+          socket.broadcast.emit('AFarmList', JSON.stringify(Afarm));
+
+          socket.broadcast.emit('AMilitaryList', JSON.stringify(Amilitary));
+          socket.broadcast.emit('AMilitaryList', JSON.stringify(Amilitary));
+    });
+
+    socket.on('Bresource', (msg)=>{
+          socket.broadcast.emit('BGoldList', JSON.stringify(Bgold));
+          socket.broadcast.emit('BGoldList',JSON.stringify(Bgold));
+
+          socket.broadcast.emit('BWoodList', JSON.stringify(Bwood));
+          socket.broadcast.emit('BWoodList',JSON.stringify(Bwood));
+
+          socket.broadcast.emit('BStoneList', JSON.stringify(Bstone));
+          socket.broadcast.emit('BStoneList', JSON.stringify(Bstone));
+        
+          socket.broadcast.emit('BFarmList', JSON.stringify(Bfarm));
+          socket.broadcast.emit('BFarmList', JSON.stringify(Bfarm));
+
+          socket.broadcast.emit('BMilitaryList', JSON.stringify(Bmilitary));
+          socket.broadcast.emit('BMilitaryList', JSON.stringify(Bmilitary));
+    });
+
+    
 
 
   //left
