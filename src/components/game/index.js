@@ -71,6 +71,8 @@ class Screen extends Component {
     this.state.client.unitList.add(c);
 
     p.nekorz.info = this.props.info;
+
+    p.nekorz.infoLock = false;
   }
 
   update() {
@@ -80,6 +82,7 @@ class Screen extends Component {
       y: p.input.activePointer.y + p.camera.y,
     };
     // handkeIncomingInfo
+
 
     // handleSelect
     if (p.input.activePointer.leftButton.isDown && p.nekorz.press === false) {
