@@ -123,15 +123,20 @@ class LoadingPage extends Component {
         //     console.log("military:"+this.state.AmilitaryList);
   }
 
-  handlePlayerDo() {
-    var socket = io();
-    socket.emit('Move',{
-      team: this.state.myteam,
-      name: this.state.myname,
-      move: 'default',
+	handlePlayerDo(idx, x, y, toX, toY) {
+		var socket = io();
+		socket.emit('Move',{
+			team: this.state.myteam,
+			name: this.state.myname,
+			source: 'unit',
+			idx,
+			x,
+			y,
+			toX,
+			toY,
     });
     // this.setState({
-        
+
     // });
   }
 
@@ -482,9 +487,9 @@ class LoadingPage extends Component {
             );
       }
       else if(this.state.doRenderMap == 1){
-                return <Game info={this.state} />;
+                return <Game info={this.state} move={this.handlePlayerDo} />;
       }
-  		
+
     }
     else{
       return (
