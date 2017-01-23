@@ -32,6 +32,7 @@ class LoadingPage extends Component {
     this.handleUsrCountChange = this.handleUsrCountChange.bind(this);
     this.renderLoadingPage = this.renderLoadingPage.bind(this);
     this.handleResourceChange = this.handleResourceChange.bind(this);
+    this.handlePlayerDo = this.handlePlayerDo.bind(this);
   }
 
 
@@ -120,6 +121,18 @@ class LoadingPage extends Component {
         //   console.log("stone:"+this.state.AstoneList);
         //    console.log("farm:"+this.state.AfarmList);
         //     console.log("military:"+this.state.AmilitaryList);
+  }
+
+  handlePlayerDo() {
+    var socket = io();
+    socket.emit('Move',{
+      team: this.state.myteam,
+      name: this.state.myname,
+      move: 'default',
+    });
+    // this.setState({
+        
+    // });
   }
 
   componentDidUpdate() {
@@ -419,7 +432,7 @@ class LoadingPage extends Component {
 
   renderLoadingPage(){
     this.handleUsrCountChange();
-    //this.handleResourceChange();
+    this.handlePlayerDo();
     var users = this.state.usrList;
     var doRenderMap = 0;
 
