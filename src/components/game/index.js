@@ -60,15 +60,17 @@ class Screen extends Component {
     c.setScaleMinMax(0.25);
     p.physics.enable(c, Phaser.Physics.ARCADE);
     c.body.setSize(16, 16);
-
+    c.index = 0;
     this.state.client.unitList.add(c);
 
     c = p.add.sprite(130, 130, 'circle');
     c.setScaleMinMax(0.25);
     p.physics.enable(c, Phaser.Physics.ARCADE);
     c.body.setSize(16, 16);
-
+    c.index = 1;
     this.state.client.unitList.add(c);
+
+    p.nekorz.info = this.props.info;
   }
 
   update() {
@@ -77,6 +79,8 @@ class Screen extends Component {
       x: p.input.activePointer.x + p.camera.x,
       y: p.input.activePointer.y + p.camera.y,
     };
+    // handkeIncomingInfo
+
     // handleSelect
     if (p.input.activePointer.leftButton.isDown && p.nekorz.press === false) {
       p.selectRect.x = worldPointer.x;
@@ -125,6 +129,7 @@ class Screen extends Component {
         s.body.moveTo(dist * 5, dist,
           p.physics.arcade.angleToPointer(s) * (180.0 / 3.141592653)
         );
+        this.props.move(s.index, s.x, s.y, worldPointer.x, worldPointer.y);
       });
     } else if (!p.input.activePointer.rightButton.isDown) {
       p.nekorz.rightPressed = false;
@@ -175,5 +180,10 @@ class Screen extends Component {
     );
   }
 }
+
+Screen.propTypes = {
+  info: React.PropTypes.object, // eslint-disable-line
+  move: React.PropTypes.function,
+};
 
 export default Screen;

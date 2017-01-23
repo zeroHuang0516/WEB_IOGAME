@@ -421,32 +421,32 @@ sio.sockets.on('connection', (socket) =>{
     });
 
     //receive client'dos
-    // socket.on('Move',(msg)=>{
-    //     if(msg.team ==='A'){
-    //         if(msg.source === 'farm'){
-    //           if(Afarm.length>=msg.idx){
-    //             if(Afarm[msg.idx].xPos !== msg.xPos){
-    //                 Afarm[msg.idx].xPos =msg.xPos;
-    //             }
-    //             if(Afarm[msg.idx].yPos !== msg.yPos){
-    //                 Afarm[msg.idx].yPos = msg.yPos;
-    //             }
-    //           }  
-    //         }
-    //     }
-    //     else if( msg.team === 'B'){
-    //         if(msg.source === 'farm'){
-    //           if(Bfarm.length>=msg.idx){
-    //             if(Bfarm[msg.idx].xPos !== msg.xPos){
-    //                 Bfarm[msg.idx].xPos =msg.xPos;
-    //             }
-    //             if(Bfarm[msg.idx].yPos !== msg.yPos){
-    //                 Bfarm[msg.idx].yPos = msg.yPos;
-    //             }
-    //           } 
-    //         }
-    //     }
-    // });
+    socket.on('Move',(msg)=>{
+        if(msg.team ==='A'){
+            if(msg.source === 'farm'){
+              if(Afarm.length>=msg.idx+1){
+                if(Afarm[msg.idx].xPos !== msg.xPos){
+                    Afarm[msg.idx].xPos =msg.xPos;
+                }
+                if(Afarm[msg.idx].yPos !== msg.yPos){
+                    Afarm[msg.idx].yPos = msg.yPos;
+                }
+              }  
+            }
+        }
+        else if( msg.team === 'B'){
+            if(msg.source === 'farm'){
+              if(Bfarm.length>=msg.idx+1){
+                if(Bfarm[msg.idx].xPos !== msg.xPos){
+                    Bfarm[msg.idx].xPos =msg.xPos;
+                }
+                if(Bfarm[msg.idx].yPos !== msg.yPos){
+                    Bfarm[msg.idx].yPos = msg.yPos;
+                }
+              } 
+            }
+        }
+    });
 
 
   //left
