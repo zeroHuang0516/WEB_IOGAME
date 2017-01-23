@@ -145,7 +145,7 @@ class LoadingPage extends Component {
             break;
           }
         }
-        
+
         //team
         if(index%8 <=3){
           this.setState({
@@ -175,10 +175,10 @@ class LoadingPage extends Component {
               myGameId:msg,
             });
             console.log("gameId: "+this.state.myGameId);
-        
+
     });
 
-      
+
 
     socket.on('PlayerList', (msg) =>{
     var list = this.state.usrList;
@@ -230,7 +230,7 @@ class LoadingPage extends Component {
                   {this.createList(users[1])}
                   {this.createList(users[2])}
                   {this.createList(users[3])}
-                </ol>     
+                </ol>
                 </ol>
               </div>
           </div>
@@ -249,7 +249,7 @@ class LoadingPage extends Component {
                   {this.createmyList(users[1])}
                   {this.createList(users[2])}
                   {this.createList(users[3])}
-                </ol>     
+                </ol>
                 </ol>
               </div>
           </div>
@@ -268,7 +268,7 @@ class LoadingPage extends Component {
                   {this.createList(users[1])}
                   {this.createmyList(users[2])}
                   {this.createList(users[3])}
-                </ol>     
+                </ol>
                 </ol>
               </div>
           </div>
@@ -287,7 +287,7 @@ class LoadingPage extends Component {
                   {this.createList(users[1])}
                   {this.createList(users[2])}
                   {this.createmyList(users[3])}
-                </ol>     
+                </ol>
                 </ol>
               </div>
           </div>
@@ -306,7 +306,7 @@ class LoadingPage extends Component {
                   {this.createList(users[1])}
                   {this.createList(users[2])}
                   {this.createList(users[3])}
-                </ol>     
+                </ol>
                 </ol>
               </div>
           </div>
@@ -329,7 +329,7 @@ class LoadingPage extends Component {
                   {this.createList(users[5])}
                   {this.createList(users[6])}
                   {this.createList(users[7])}
-                </ol>        
+                </ol>
               </ol>
               </div>
           </div>
@@ -348,7 +348,7 @@ class LoadingPage extends Component {
                   {this.createmyList(users[5])}
                   {this.createList(users[6])}
                   {this.createList(users[7])}
-                </ol>        
+                </ol>
               </ol>
               </div>
           </div>
@@ -367,7 +367,7 @@ class LoadingPage extends Component {
                   {this.createList(users[5])}
                   {this.createmyList(users[6])}
                   {this.createList(users[7])}
-                </ol>        
+                </ol>
               </ol>
               </div>
           </div>
@@ -386,7 +386,7 @@ class LoadingPage extends Component {
                   {this.createList(users[5])}
                   {this.createList(users[6])}
                   {this.createmyList(users[7])}
-                </ol>        
+                </ol>
               </ol>
               </div>
           </div>
@@ -405,16 +405,16 @@ class LoadingPage extends Component {
                   {this.createList(users[5])}
                   {this.createList(users[6])}
                   {this.createList(users[7])}
-                </ol>        
+                </ol>
               </ol>
               </div>
           </div>
         </div>
       );
     }
-   
+
   }
- 
+
 
 
   renderLoadingPage(){
@@ -422,9 +422,9 @@ class LoadingPage extends Component {
     //this.handleResourceChange();
     var users = this.state.usrList;
     var doRenderMap = 0;
-    
+
   	if(users.length==8){
-    var time = 10; 
+    var time = 10;
     var initialOffset = '440';
     var i = 1;
     var that = this;
@@ -439,7 +439,7 @@ class LoadingPage extends Component {
         });
         //window.location.href="#/world";
     }
-    i++;  
+    i++;
 }, 1000);
       var index=0;
       var len = 8;
@@ -449,9 +449,9 @@ class LoadingPage extends Component {
           break;
         }
       }
-      
-      
-      
+
+
+
       if(this.state.doRenderMap == 0){
             return(
                 <div>
@@ -469,13 +469,13 @@ class LoadingPage extends Component {
             );
       }
       else if(this.state.doRenderMap == 1){
-                return <Game />;
+                return <Game info={this.state} />;
       }
   		
     }
     else{
       return (
-        <div>   
+        <div>
       <div className="container">
         <div className="row mt">
             <div className="col-md-12">
@@ -488,7 +488,7 @@ class LoadingPage extends Component {
               </div>
               </div>
             </div>
-          
+
         </div>
       );
   	}
@@ -503,7 +503,7 @@ class LoadingPage extends Component {
 			</div>
 		);
 	}
-	  
-  		
+
+
 }
 export default LoadingPage;

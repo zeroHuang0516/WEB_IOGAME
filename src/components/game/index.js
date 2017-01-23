@@ -69,6 +69,8 @@ class Screen extends Component {
     c.body.setSize(16, 16);
 
     this.state.client.unitList.add(c);
+
+    p.nekorz.info = this.props.info;
   }
 
   update() {
@@ -175,5 +177,9 @@ class Screen extends Component {
     );
   }
 }
+
+Screen.propTypes = {
+  info: React.PropTypes.object, // eslint-disable-line
+};
 
 export default Screen;
