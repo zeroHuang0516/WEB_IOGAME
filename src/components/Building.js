@@ -12,15 +12,11 @@ class Building extends Component {
 
   onBuildingInfoChange(){
   	  var socket = io();
-      sockeu.on('update',(msg)=>{
-      		
-      });
-      socket.emit('move',(msg)=>{
-
-      });
-      socket.emit('change',(msg)=>{
-
-      });
+    socket.emit('Move',{
+      team: this.state.myteam,
+      name: this.state.myname,
+      move: 'default',
+    });
   }
 }
 

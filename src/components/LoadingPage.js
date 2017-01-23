@@ -138,6 +138,7 @@ class LoadingPage extends Component {
     // this.setState({
 
     // });
+
   }
 
   componentDidUpdate() {
