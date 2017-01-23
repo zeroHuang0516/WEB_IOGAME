@@ -124,12 +124,16 @@ class LoadingPage extends Component {
   }
 
   handlePlayerDo() {
-    var socket = io();
-    socket.emit('Move',{
-      team: this.state.myteam,
-      name: this.state.myname,
-      move: 'default',
-    });
+    // var socket = io();
+    // socket.emit('Move',{
+    //   team: this.state.myteam,
+    //   name: this.state.myname,
+    //   source: 'farm',
+    //   idx:0,
+    //   xPos:5,
+    //   yPos:6,
+    //});
+
     // this.setState({
 
     // });
