@@ -123,20 +123,15 @@ class LoadingPage extends Component {
         //     console.log("military:"+this.state.AmilitaryList);
   }
 
-
-
-	handlePlayerDo(idx, x, y, toX, toY) {
-		console.log(this.state.myteam);
-		var socket = io();
-		socket.emit('Move',{
-			team: this.state.myteam,
-			name: this.state.myname,
-			source: 'unit',
-			idx,
-			x,
-			y,
-			toX,
-			toY,
+  handlePlayerDo() {
+    var socket = io();
+    socket.emit('Move',{
+      team: this.state.myteam,
+      name: this.state.myname,
+      source: 'farm',
+      idx:0,
+      xPos:5,
+      yPos:6,
     });
 
     // this.setState({
@@ -221,6 +216,31 @@ class LoadingPage extends Component {
         });
         console.log(this.state.usrList);
       }
+
+      //team
+      if(this.state.usrList.length==8){
+      var index=0;
+        var len = 8;
+        while(len--){
+          if(this.state.usrList[len] === this.state.myname){
+            index = len;
+            break;
+          }
+        }
+
+            if(index%8 <=3){
+              this.setState({
+                  myteam:'A',
+              });
+            }
+            else{
+              this.setState({
+                  myteam:'B',
+              });
+            }
+            console.log('team: '+this.state.myteam);
+      }
+
     }
     });
 
