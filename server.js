@@ -422,6 +422,8 @@ sio.sockets.on('connection', (socket) =>{
 
     //receive client'dos
     socket.on('Move',(msg)=>{
+      console.log('something is here...');
+      console.log(msg);
         if(msg.team ==='A'){
           if(msg.source === 'unit') {
             AmilitaryList[msg.idx].xPos = msg.x;

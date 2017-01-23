@@ -124,6 +124,7 @@ class LoadingPage extends Component {
   }
 
 	handlePlayerDo(idx, x, y, toX, toY) {
+		console.log(this.state.myteam);
 		var socket = io();
 		socket.emit('Move',{
 			team: this.state.myteam,
