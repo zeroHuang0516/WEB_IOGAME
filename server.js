@@ -145,10 +145,10 @@ sio.sockets.on('connection', (socket) =>{
 
   //console.log('\t socket.io:: player '+socket.userid+' connected');
 
+  
 
 
-
-
+ 
 
   //Other informaiton of players can be added here!!
   var currentPlayer = {
@@ -160,10 +160,10 @@ sio.sockets.on('connection', (socket) =>{
 
   socket.on('add user', (msg) => {
         socket.username = msg;
-
+      
         currentPlayer.id = socket.userid;
         currentPlayer.username = socket.username;
-
+        
         console.log('[INFO] Player ' + msg + ' connecting!');
         socket.emit('NewUsrName',msg);
         socket.emit('SocketId', socket.userid);
@@ -182,7 +182,7 @@ sio.sockets.on('connection', (socket) =>{
         else if ((msg)==""||(msg)==null) {
             socket.emit('kick', 'Invalid username.');
             socket.disconnect();
-        }
+        } 
         else {
             console.log('[INFO] Player ' + msg+ ' connected!');
             //sockets[socket.userid] = socket;
@@ -193,7 +193,7 @@ sio.sockets.on('connection', (socket) =>{
             socket.emit('playerJoin', { name: currentPlayer.name });
             console.log('Total players: ' + users.length);
             if(users.length==8){
-
+                
                 users.sort(() => {
                   return .8-Math.random();
                 });
@@ -215,7 +215,7 @@ sio.sockets.on('connection', (socket) =>{
                 for(var j=0;j<users.length;j++){
                   TotalUsrs.push(users[j]);
                 }
-
+                
 
                 games.push({
                   id: gameId,
@@ -257,56 +257,56 @@ sio.sockets.on('connection', (socket) =>{
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Astone.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Agold.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Afarm.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Amilitary.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Ainfantry.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Acavalry.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Aarcher.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
 
                 Bwood.push({
                   xPos:0,
@@ -314,56 +314,56 @@ sio.sockets.on('connection', (socket) =>{
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Bstone.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Bgold.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Bfarm.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Bmilitary.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Binfantry.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Bcavalry.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
                 Barcher.push({
                   xPos:0,
                   yPos:0,
                   xVel:0,
                   yVel:0,
                   life:0,
-                });
+                }); 
 
                 socket.broadcast.emit('GameId', gameCount);
                 socket.emit('GameId', gameCount);
@@ -381,10 +381,10 @@ sio.sockets.on('connection', (socket) =>{
 
             console.log("[INFO] We have "+Bteams.length+" Bteams.");
             console.log(Bteams);
-
+            
         }
     });
-
+  
     //resource update
     socket.on('Aresource', (msg)=>{
           socket.broadcast.emit('AGoldList', JSON.stringify(Agold));
@@ -395,7 +395,7 @@ sio.sockets.on('connection', (socket) =>{
 
           socket.broadcast.emit('AStoneList', JSON.stringify(Astone));
           socket.broadcast.emit('AStoneList', JSON.stringify(Astone));
-
+        
           socket.broadcast.emit('AFarmList', JSON.stringify(Afarm));
           socket.broadcast.emit('AFarmList', JSON.stringify(Afarm));
 
@@ -412,7 +412,7 @@ sio.sockets.on('connection', (socket) =>{
 
           socket.broadcast.emit('BStoneList', JSON.stringify(Bstone));
           socket.broadcast.emit('BStoneList', JSON.stringify(Bstone));
-
+        
           socket.broadcast.emit('BFarmList', JSON.stringify(Bfarm));
           socket.broadcast.emit('BFarmList', JSON.stringify(Bfarm));
 
@@ -422,27 +422,33 @@ sio.sockets.on('connection', (socket) =>{
 
     //receive client'dos
     socket.on('Move',(msg)=>{
-      console.log('something is here...');
-      console.log(msg);
+      //console.log('something is here...');
+      //console.log(msg);
         if(msg.team ==='A'){
-          if(msg.source === 'unit') {
-            AmilitaryList[msg.idx].xPos = msg.x;
-            AmilitaryList[msg.idx].yPos = msg.y;
-            AmilitaryList[msg.idx].toX = msg.toX;
-            AmilitaryList[msg.idx].toY = msg.toY;
-          }
-          console.log('updated. A');
-            //update A's data
+            if(msg.source === 'farm'){
+              if(Afarm.length>=msg.idx+1){
+                if(Afarm[msg.idx].xPos !== msg.xPos){
+                    Afarm[msg.idx].xPos =msg.xPos;
+                }
+                if(Afarm[msg.idx].yPos !== msg.yPos){
+                    Afarm[msg.idx].yPos = msg.yPos;
+                }
+                console.log(Afarm[msg.idx]);
+              }  
+            }
         }
         else if( msg.team === 'B'){
-            //update B's data
-            if(msg.source === 'unit') {
-              BmilitaryList[msg.idx].xPos = msg.x;
-              BmilitaryList[msg.idx].yPos = msg.y;
-              BmilitaryList[msg.idx].toX = msg.toX;
-              BmilitaryList[msg.idx].toY = msg.toY;
+            if(msg.source === 'farm'){
+              if(Bfarm.length>=msg.idx+1){
+                if(Bfarm[msg.idx].xPos !== msg.xPos){
+                    Bfarm[msg.idx].xPos =msg.xPos;
+                }
+                if(Bfarm[msg.idx].yPos !== msg.yPos){
+                    Bfarm[msg.idx].yPos = msg.yPos;
+                }
+                console.log(Bfarm[msg.idx]);
+              } 
             }
-            console.log('updated.  B');
         }
     });
 
@@ -451,7 +457,7 @@ sio.sockets.on('connection', (socket) =>{
   socket.on('disconnect',function(){
     console.log('[INFO] User ' +currentPlayer.id +" disconnected!");
     socket.broadcast.emit('playerDisconnect', { name: currentPlayer.username });
-  });
+  });       
 });
 
 
