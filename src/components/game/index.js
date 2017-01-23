@@ -72,6 +72,9 @@ class Screen extends Component {
 
     p.nekorz.info = this.props.info;
 
+    console.log(this.props.info.myname);
+
+
     p.nekorz.infoLock = false;
   }
 
@@ -82,6 +85,29 @@ class Screen extends Component {
       y: p.input.activePointer.y + p.camera.y,
     };
     // handkeIncomingInfo
+    p.nekorz.info = this.props.info;
+    const first = p.nekorz.info.AmilitaryList[0];
+    const second = p.nekorz.info.AmilitaryList[1];
+
+    if (first !== undefined && second !== undefined) {
+      this.state.client.unitList.forEach(s => {
+        if (s.index === 0) {
+          s.x = first.x;
+          s.y = first.y;
+          const dist = p.physics.arcade.distanceToXY(s, first.toX, first.toY);
+          s.body.moveTo(dist * 5, dist,
+            p.physics.arcade.angleToPointer(s) * (180.0 / 3.141592653)
+          );
+        } else if (s.index === 1) {
+          s.x = second.x;
+          s.y = second.y;
+          const dist = p.physics.arcade.distanceToXY(s, second.toX, second.toY);
+          s.body.moveTo(dist * 5, dist,
+            p.physics.arcade.angleToPointer(s) * (180.0 / 3.141592653)
+          );
+        }
+      });
+    }
 
 
     // handleSelect
@@ -186,7 +212,7 @@ class Screen extends Component {
 
 Screen.propTypes = {
   info: React.PropTypes.object, // eslint-disable-line
-  move: React.PropTypes.function,
+  move: React.PropTypes.func,
 };
 
 export default Screen;
