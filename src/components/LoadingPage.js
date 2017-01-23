@@ -131,8 +131,9 @@ class LoadingPage extends Component {
       move: 'default',
     });
     // this.setState({
-        
+
     // });
+
   }
 
   componentDidUpdate() {
