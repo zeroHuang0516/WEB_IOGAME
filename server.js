@@ -57,32 +57,32 @@ app.get('/*', function(req, res, next) {
 var users = [
     {
         id:'default',   //for connection check
-        username:'1',
+        username:'user1',
         team:'dafault',
     },
     {
         id:'',   //for connection check
-        username:'2',
+        username:'user2',
         team:'',
     },
     {
         id:'',   //for connection check
-        username:'3',
+        username:'user3',
         team:'',
     },
     {
         id:'',   //for connection check
-        username:'4',
+        username:'user4',
         team:'',
     },
     {
         id:'',   //for connection check
-        username:'5',
+        username:'user5',
         team:'',
     },
     {
         id:'',   //for connection check
-        username:'6',
+        username:'user6',
         team:'',
     },
 ];

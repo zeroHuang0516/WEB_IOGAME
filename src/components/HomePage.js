@@ -96,10 +96,10 @@ class HomePage extends Component {
             <div id="instructions">
                 <h3>Gameplay</h3>
                 <ul>
-                    <li>Move your mouse on the screen to move your character.</li>
-                    <li>Eat food and other players in order to grow your character (food respawns every time a player eats it).</li>
-                    <li>A player's mass is the number of food particles eaten.</li>
-                    <li>Objective: Try to get fat and eat other players.</li>
+                    <li>Move your mouse on the screen and press left key to select the point you wanted to move.</li>
+                    <li>Move your mouse on the map and press right key to direct the selected point to the location you like.</li>
+                    <li>Build buildings at the location you like on the map .</li>
+                    <li>Objective: Try to build your own empire and attack others.</li>
                 </ul>
             </div>
         </div>
