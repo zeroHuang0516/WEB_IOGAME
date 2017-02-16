@@ -68,7 +68,16 @@ class Screen extends Component {
     p.physics.enable(c, Phaser.Physics.ARCADE);
     c.body.setSize(16, 16);
 
+<<<<<<< HEAD
     this.state.client.unitList.add(c);
+=======
+    p.nekorz.info = this.props.info;
+
+    console.log(this.props.info.myname);
+
+
+    p.nekorz.infoLock = false;
+>>>>>>> 668794f6b0543f237c16ac3d49741df6d0375c77
   }
 
   update() {
@@ -77,6 +86,35 @@ class Screen extends Component {
       x: p.input.activePointer.x + p.camera.x,
       y: p.input.activePointer.y + p.camera.y,
     };
+<<<<<<< HEAD
+=======
+    // handkeIncomingInfo
+    p.nekorz.info = this.props.info;
+    const first = p.nekorz.info.AmilitaryList[0];
+    const second = p.nekorz.info.AmilitaryList[1];
+
+    if (first !== undefined && second !== undefined) {
+      this.state.client.unitList.forEach(s => {
+        if (s.index === 0) {
+          s.x = first.x;
+          s.y = first.y;
+          const dist = p.physics.arcade.distanceToXY(s, first.toX, first.toY);
+          s.body.moveTo(dist * 5, dist,
+            p.physics.arcade.angleToPointer(s) * (180.0 / 3.141592653)
+          );
+        } else if (s.index === 1) {
+          s.x = second.x;
+          s.y = second.y;
+          const dist = p.physics.arcade.distanceToXY(s, second.toX, second.toY);
+          s.body.moveTo(dist * 5, dist,
+            p.physics.arcade.angleToPointer(s) * (180.0 / 3.141592653)
+          );
+        }
+      });
+    }
+
+
+>>>>>>> 668794f6b0543f237c16ac3d49741df6d0375c77
     // handleSelect
     if (p.input.activePointer.leftButton.isDown && p.nekorz.press === false) {
       p.selectRect.x = worldPointer.x;
@@ -188,4 +226,13 @@ class Screen extends Component {
   }
 }
 
+<<<<<<< HEAD
 export default Screen;
+=======
+Screen.propTypes = {
+  info: React.PropTypes.object, // eslint-disable-line
+  move: React.PropTypes.func,
+};
+
+export default Screen;
+>>>>>>> 668794f6b0543f237c16ac3d49741df6d0375c77
